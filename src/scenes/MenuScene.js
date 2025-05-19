@@ -4,26 +4,44 @@ class MenuScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('fonsMenu', 'public/images/ambiente-etereo-con-grandes-ventanas.jpg');
-        this.load.font('medievalFont', 'fonts/OldLondon.ttf'); // si tens font externa
+        this.load.image('fonsMenu', 'images/ambiente-etereo-con-grandes-ventanas.jpg');
     }
 
     create() {
-        // Posar el fons centrat i que cobreixi la pantalla
         this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'fonsMenu')
             .setOrigin(0.5)
             .setDisplaySize(this.cameras.main.width, this.cameras.main.height);
 
-        // Text amb tipografia
-        this.titleText = this.add.text(this.cameras.main.centerX, 100, 'Joc Medieval', {
-            fontFamily: 'MedievalFont, serif',
-            fontSize: '64px',
+        // Títol
+        this.add.text(this.cameras.main.centerX, 120, 'Joc Medieval', {
+            fontFamily: 'OldLondon, serif',
+            fontSize: '72px',
             color: '#f0d060',
             stroke: '#000000',
-            strokeThickness: 6,
-            shadow: { offsetX: 2, offsetY: 2, color: '#333', blur: 3, stroke: true, fill: true }
+            strokeThickness: 8,
+            shadow: {
+                offsetX: 4,
+                offsetY: 4,
+                color: '#000000',
+                blur: 6,
+                stroke: true,
+                fill: true
+            }
         }).setOrigin(0.5);
 
-        // Més elements del menú...
+        // Instrucció
+        this.add.text(this.cameras.main.centerX, 260, 'Prem ESPAI per començar', {
+            fontFamily: 'OldLondon, serif',
+            fontSize: '32px',
+            color: '#ffffff',
+            stroke: '#000000',
+            strokeThickness: 4
+        }).setOrigin(0.5);
+
+        // Escoltar tecla espai
+        this.input.keyboard.on('keydown-SPACE', () => {
+            this.sound.stopAll(); // Atura música
+            this.scene.start('Mon1Scene');
+        });
     }
 }
