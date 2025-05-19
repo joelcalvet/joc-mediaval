@@ -1,14 +1,29 @@
-export default class MenuScene extends Phaser.Scene {
+class MenuScene extends Phaser.Scene {
     constructor() {
-        super('MenuScene')
+        super({ key: 'MenuScene' });
+    }
+
+    preload() {
+        this.load.image('fonsMenu', 'public/images/ambiente-etereo-con-grandes-ventanas.jpg');
+        this.load.font('medievalFont', 'fonts/OldLondon.ttf'); // si tens font externa
     }
 
     create() {
-        this.add.text(250, 200, 'Cavaller dels Mons', { fontSize: '32px', fill: '#fff' })
-        const startText = this.add.text(300, 300, 'Comença el viatge', { fontSize: '24px', fill: '#0f0' })
-        startText.setInteractive()
-        startText.on('pointerdown', () => {
-            this.scene.start('World1Scene')
-        })
+        // Posar el fons centrat i que cobreixi la pantalla
+        this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'fonsMenu')
+            .setOrigin(0.5)
+            .setDisplaySize(this.cameras.main.width, this.cameras.main.height);
+
+        // Text amb tipografia
+        this.titleText = this.add.text(this.cameras.main.centerX, 100, 'Joc Medieval', {
+            fontFamily: 'MedievalFont, serif',
+            fontSize: '64px',
+            color: '#f0d060',
+            stroke: '#000000',
+            strokeThickness: 6,
+            shadow: { offsetX: 2, offsetY: 2, color: '#333', blur: 3, stroke: true, fill: true }
+        }).setOrigin(0.5);
+
+        // Més elements del menú...
     }
 }
